@@ -85,7 +85,7 @@ group :development do
   gem "rails_db", ">= 2.3.1"
   gem "rails-erd"
 end
-  gem "devise"
-  gem "money-rails", "~> 1.12"
-  gem "positioning"
-
+gem "devise"
+gem "money-rails", "~> 1.12"
+gem "phony_rails"
+gem "positioning"
