@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_042009) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_042438) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -22,6 +22,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_042009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lister_id"], name: "index_houses_on_lister_id"
+  end
+
+  create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.date "desired_completion_date"
+    t.integer "running_cost", default: 0, null: false
+    t.uuid "house_id", null: false
+    t.integer "budget", default: 0, null: false
+    t.date "estimated_completion_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["house_id"], name: "index_projects_on_house_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -38,4 +50,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_042009) do
   end
 
   add_foreign_key "houses", "users", column: "lister_id"
+  add_foreign_key "projects", "houses"
 end
