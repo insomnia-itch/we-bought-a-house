@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_042438) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_043037) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_042438) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lister_id"], name: "index_houses_on_lister_id"
+  end
+
+  create_table "ownerships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "owner_id", null: false
+    t.uuid "house_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["house_id"], name: "index_ownerships_on_house_id"
+    t.index ["owner_id"], name: "index_ownerships_on_owner_id"
   end
 
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -50,5 +59,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_042438) do
   end
 
   add_foreign_key "houses", "users", column: "lister_id"
+  add_foreign_key "ownerships", "houses"
+  add_foreign_key "ownerships", "users", column: "owner_id"
   add_foreign_key "projects", "houses"
 end
