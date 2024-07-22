@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_052853) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_053018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -43,6 +43,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_052853) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lister_id"], name: "index_houses_on_lister_id"
+  end
+
+  create_table "notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "notable_type", null: false
+    t.uuid "notable_id", null: false
+    t.text "body"
+    t.uuid "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_notes_on_author_id"
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable"
   end
 
   create_table "ownerships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -117,6 +128,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_052853) do
   add_foreign_key "contracts", "contractors"
   add_foreign_key "contracts", "projects"
   add_foreign_key "houses", "users", column: "lister_id"
+  add_foreign_key "notes", "users", column: "author_id"
   add_foreign_key "ownerships", "houses"
   add_foreign_key "ownerships", "users", column: "owner_id"
   add_foreign_key "prerequisites", "projects", column: "locked_project_id"
