@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Prerequisites</h1>
+
+<div id="prerequisites">
+  <% @prerequisites.each do |prerequisite| %>
+    <%= render prerequisite %>
+    <p>
+      <%= link_to "Show this prerequisite", prerequisite %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New prerequisite", new_prerequisite_path %>

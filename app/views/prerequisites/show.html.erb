@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @prerequisite %>
+
+<div>
+  <%= link_to "Edit this prerequisite", edit_prerequisite_path(@prerequisite) %> |
+  <%= link_to "Back to prerequisites", prerequisites_path %>
+
+  <%= button_to "Destroy this prerequisite", @prerequisite, method: :delete %>
+</div>
