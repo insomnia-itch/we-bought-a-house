@@ -10,7 +10,7 @@ rails generate scaffold project priority:integer desired_completion_date:date ru
 rails generate scaffold ownership owner:belongs_to house:belongs_to
 rails generate scaffold contractor name:string phone_number:string email:string
 rails generate scaffold skill name:string
-rails generate scaffold specialties contactor:belongs_to skill:belongs_to
+rails generate scaffold specialization contractor:belongs_to skill:belongs_to
 rails generate scaffold contract contractor:belongs_to project:belongs_to time_estimate:integer price_estimate:integer running_cost:integer accepted:boolean
 
 rails generate scaffold note notable:references{polymorphic} body:text author:belongs_to
