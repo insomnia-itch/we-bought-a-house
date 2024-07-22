@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attachments
   resources :notes
   resources :receipts
   resources :prerequisites
