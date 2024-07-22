@@ -1,0 +1,37 @@
+<%= form_with(model: receipt) do |form| %>
+  <% if receipt.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(receipt.errors.count, "error") %> prohibited this receipt from being saved:</h2>
+
+      <ul>
+        <% receipt.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :project_id, style: "display: block" %>
+    <%= form.text_field :project_id %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div>
+    <%= form.label :contractor_id, style: "display: block" %>
+    <%= form.text_field :contractor_id %>
+  </div>
+
+  <div>
+    <%= form.label :type_of_cost, style: "display: block" %>
+    <%= form.text_field :type_of_cost %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

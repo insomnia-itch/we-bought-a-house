@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :receipts
   resources :prerequisites
   resources :contracts
   resources :specializations
