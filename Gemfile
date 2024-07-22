@@ -86,3 +86,6 @@ group :development do
   gem "rails-erd"
 end
   gem "devise"
+  gem "money-rails", "~> 1.12"
+  gem "positioning"
+
