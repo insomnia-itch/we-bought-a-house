@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Ownerships</h1>
+
+<div id="ownerships">
+  <% @ownerships.each do |ownership| %>
+    <%= render ownership %>
+    <p>
+      <%= link_to "Show this ownership", ownership %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New ownership", new_ownership_path %>
