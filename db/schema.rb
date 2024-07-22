@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_045210) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_050754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -59,6 +59,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_045210) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "specializations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "contractor_id", null: false
+    t.uuid "skill_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contractor_id"], name: "index_specializations_on_contractor_id"
+    t.index ["skill_id"], name: "index_specializations_on_skill_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -76,4 +85,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_045210) do
   add_foreign_key "ownerships", "houses"
   add_foreign_key "ownerships", "users", column: "owner_id"
   add_foreign_key "projects", "houses"
+  add_foreign_key "specializations", "contractors"
+  add_foreign_key "specializations", "skills"
 end
