@@ -1,0 +1,47 @@
+<%= form_with(model: contract) do |form| %>
+  <% if contract.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
+
+      <ul>
+        <% contract.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :contractor_id, style: "display: block" %>
+    <%= form.text_field :contractor_id %>
+  </div>
+
+  <div>
+    <%= form.label :project_id, style: "display: block" %>
+    <%= form.text_field :project_id %>
+  </div>
+
+  <div>
+    <%= form.label :time_estimate, style: "display: block" %>
+    <%= form.number_field :time_estimate %>
+  </div>
+
+  <div>
+    <%= form.label :price_estimate, style: "display: block" %>
+    <%= form.number_field :price_estimate %>
+  </div>
+
+  <div>
+    <%= form.label :running_cost, style: "display: block" %>
+    <%= form.number_field :running_cost %>
+  </div>
+
+  <div>
+    <%= form.label :accepted, style: "display: block" %>
+    <%= form.check_box :accepted %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
