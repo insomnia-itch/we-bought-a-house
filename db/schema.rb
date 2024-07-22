@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_053018) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_053138) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "file_extension", default: "", null: false
+    t.string "url", default: "", null: false
+    t.uuid "uploader_id", null: false
+    t.string "attachable_type", null: false
+    t.uuid "attachable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_attachments_on_attachable"
+    t.index ["uploader_id"], name: "index_attachments_on_uploader_id"
+  end
 
   create_table "contractors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -125,6 +137,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_053018) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "attachments", "users", column: "uploader_id"
   add_foreign_key "contracts", "contractors"
   add_foreign_key "contracts", "projects"
   add_foreign_key "houses", "users", column: "lister_id"
